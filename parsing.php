@@ -113,7 +113,11 @@ function xml_RawPayload($link,$jml_tu){
 	$filexml = simplexml_load_file($link);
 	//print_r($filexml); 
 	foreach ($filexml->Messages->ReturnMessage as $retmes){
-		//echo '<pre>';
+		$msg_kirim = $retmes->MessageUTC[0];
+		echo '<br>Pesan dikirm pada (+00:00) : '. $msg_kirim;
+		$waktu_sini = new DateTime($msg_kirim,new DateTimeZone('UTC'));
+		$waktu_sini->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+		echo ' || (+07:00) : '.$waktu_sini->format('Y-m-d H:i:s').'<br>';//echo '<pre>';
 		//print_r($retmes);
 		//echo '<pre>';
 		if (($retmes->SIN[0])==128){
