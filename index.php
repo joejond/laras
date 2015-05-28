@@ -125,17 +125,17 @@
 						//console.log($('#form1').serialize());
 						
 						//var isidata = $('#form1').serializeArray();
-						var val_modem = $('#modem').val();
+						//var val_modem = $('#modem').val();
 						
 						var isidata = $('#form1').serialize();
 						//console.log('isi data ke satu : '+isidata[0].value);
-						console.log(val_modem);
+						//console.log(val_modem);
 						var url = 'parsing.php';
-						alert ('data yang dikirim '+isidata);
+						alert ('Tunggu Mas ya....  Datanya lagi di Prosess ');
 						$.post(
 							url,isidata,
 							function (data){
-								alert ('sip sip');
+								alert ('Sip .... Sukses Parsingnya ');
 								$('#hasil_pars').html(data);
 								}
 						);
