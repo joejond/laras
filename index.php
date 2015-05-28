@@ -83,6 +83,10 @@
 			</tr>
 		</table>
 	</form>
+	<hr>
+	<div id="hasil_pars">
+	
+	</div>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
@@ -92,26 +96,55 @@
 			$(function(){
 				$('#start').datetimepicker({
 						dateFormat: 'yy-mm-dd', 
-						timeFormat: 'HH:mm:ss',
+						timeFormat: 'HH:mm:ss'
 						//stepMinute: 
 						//addSliderAccess: true,
 						//sliderAccessArgs: { touchonly: true }
 				});
 				$('#end').datetimepicker({
 						dateFormat: 'yy-mm-dd', 
-						timeFormat: 'HH:mm:ss',
+						timeFormat: 'HH:mm:ss'
 						//stepMinute: 
 				});
 				
 				$('#form1').submit(function(){
-						console.log($('#form1').serializeArray());
-						console.log($('#form1').serialize());
+						//console.log($('#form1').serializeArray());
+						//console.log($('#form1').serialize());
 						
-						var isidata = $('#form1').serializeArray();
-						console.log('isi data ke satu : '+isidata[0].value);
+						//var isidata = $('#form1').serializeArray();
+						var isidata = $('#form1').serialize();
+						//console.log('isi data ke satu : '+isidata[0].value);
+						
+						var url = 'parsing.php';
+						alert ('data yang dikirim '+isidata);
+						$.post(
+							url,isidata,
+							function (data){
+								alert ('sip sip');
+								$('#hasil_pars').html(data);
+								}
+						);
 						return false;
-				})
+				});
 			});
+			
+			//$("#form_grafik1").submit(function(){
+				//$("#loading1").show();
+				//var data1 = $("#form_grafik1").serialize();
+				//var url1 = $('#form_grafik1').attr('action');
+				////alert ('tekan tekan kamu datane ' + data1 +'=> '+url1);
+				////return true;
+				//$.post( 
+                  //url1,data1,
+                  //function(data) {
+                     //$("#loading1").hide();
+                     //$('#hasil_grafik1').html(data);
+                     
+                     ////alert('wes wess');
+                  //}
+                 //);
+                 //return false
+			//});
 		
 		//$( "form" ).submit(function( event ) {
   //console.log( $( this ).serializeArray() );
