@@ -28,7 +28,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-	<title>Laras || Parsing Satelit</title>
+	<title>LARAS || Parsing Satelit</title>
 	
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="generator" content="Geany 1.23.1" />
@@ -40,7 +40,7 @@
 </head>
 
 <body>
-	<h1>Parsing Skywave v 0.0</h1>
+	<h1>LARAS (tooLs pARsing A Satelite) v0.0</h1>
 	<form id="form1" action="" method="POST">
 		<table>
 			<tr>
