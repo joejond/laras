@@ -40,7 +40,7 @@
 
 <body>
 	<h1>Parsing Skywave v 0.0</h1>
-	<form>
+	<form id="form1" action="" method="POST">
 		<table>
 			<tr>
 				<td>Start Ambil Data</td>
@@ -55,13 +55,13 @@
 			<tr>
 				<td>Modem</td>
 				<td>:</td>
-				<td><input type="text" id="modem" name="modem" maxlength="15" style="text-transform:uppercase"></td>
+				<td><input type="text" id="modem" name="modem" maxlength="15" minlength="15" style="text-transform:uppercase"></td>
 			</tr>
 			<tr>
 				<td>Gateway</td>
 				<td>:</td>
 				<td>
-					<select>
+					<select id="gw" name="gw">
 						<option value='2'>isatdatapro.skywave.com</option> 
 						<option value='1' selected="selected" >m2prime.aissat.com</option>
 						
@@ -76,7 +76,10 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
-				<td><button>Submit</button> </td>
+<!--
+				<td><button id="tb_submit">Submit</button> </td>
+-->
+				<td><input type="submit" id="tb_submit" value="S U B M I T"> </td>
 			</tr>
 		</table>
 	</form>
@@ -99,8 +102,21 @@
 						timeFormat: 'HH:mm:ss',
 						//stepMinute: 
 				});
+				
+				$('#form1').submit(function(){
+						console.log($('#form1').serializeArray());
+						console.log($('#form1').serialize());
+						
+						var isidata = $('#form1').serializeArray();
+						console.log('isi data ke satu : '+isidata[0].value);
+						return false;
+				})
 			});
 		
+		//$( "form" ).submit(function( event ) {
+  //console.log( $( this ).serializeArray() );
+  //event.preventDefault();
+//});
 			
 	</script>
 </body>
