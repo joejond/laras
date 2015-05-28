@@ -55,7 +55,7 @@
 			<tr>
 				<td>Modem</td>
 				<td>:</td>
-				<td><input type="text" id="modem" name="modem"></td>
+				<td><input type="text" id="modem" name="modem" maxlength="15" style="text-transform:uppercase"></td>
 			</tr>
 			<tr>
 				<td>Gateway</td>
@@ -63,18 +63,15 @@
 				<td>
 					<select>
 						<option value='2'>isatdatapro.skywave.com</option> 
-						<option value='1' selected="selected" >m2prime.aissat.com</option> 
+						<option value='1' selected="selected" >m2prime.aissat.com</option>
 						
 					</select>
 				</td>
-<!--
-				<td><input type="text" id="gw" name="gw"></td>
--->
 			</tr>
 			<tr>
 				<td>Jumlah Titik Ukur</td>
 				<td>:</td>
-				<td><input type="text" id="tu" name="tu"></td>
+				<td><input type="number" max="26" id="tu" name="tu" value="20"></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
