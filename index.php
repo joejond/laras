@@ -28,7 +28,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-	<title>untitled</title>
+	<title>Laras || Parsing Satelit</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="generator" content="Geany 1.23.1" />
 	<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
@@ -43,25 +43,37 @@
 	<form id="form1" action="" method="POST">
 		<table>
 			<tr>
+				<td>Waktu Sekarang</td>
+				<td>:</td>
+				<td><?php
+					$skr = new DateTime();
+					echo '(+07.00)-> '.$skr->format('Y-m-d H:i:s');
+					$skr_utc = $skr;
+					$skr_utc->setTimeZone(new DateTimeZone('UTC'));
+					echo ' || (+00.00)-> '.$skr_utc->format('Y-m-d H:i:s').'<br>';
+				
+				?></td>
+			</tr>
+			<tr>
 				<td>Start Ambil Data</td>
 				<td>:</td>
-				<td><input type="text" id="start" name="start" value="<?php $saiki = new DateTime(); echo $saiki->format('Y-m-d H:i:s');?>"></td>
+				<td><input type="text" id="start" name="start" value="<?php $saiki = new DateTime(); echo $saiki->format('Y-m-d H:i:s');?>" required></td>
 			</tr>
 			<tr>
 				<td>End Ambil Data</td>
 				<td>:</td>
-				<td><input type="text" id="end" name="end" value="<?php $saiki = new DateTime(); echo $saiki->format('Y-m-d H:i:s');?>"></td> 
+				<td><input type="text" id="end" name="end" value="<?php $saiki = new DateTime(); echo $saiki->format('Y-m-d H:i:s');?>" required></td> 
 			</tr>
 			<tr>
 				<td>Modem</td>
 				<td>:</td>
-				<td><input type="text" id="modem" name="modem" maxlength="15" minlength="15" style="text-transform:uppercase"></td>
+				<td><input type="text" id="modem" name="modem" maxlength="15" minlength="15" style="text-transform:uppercase" required></td>
 			</tr>
 			<tr>
 				<td>Gateway</td>
 				<td>:</td>
 				<td>
-					<select id="gw" name="gw">
+					<select id="gw" name="gw" required>
 						<option value='2'>isatdatapro.skywave.com</option> 
 						<option value='1' selected="selected" >m2prime.aissat.com</option>
 						
@@ -71,7 +83,7 @@
 			<tr>
 				<td>Jumlah Titik Ukur</td>
 				<td>:</td>
-				<td><input type="number" max="26" id="tu" name="tu" value="20"></td>
+				<td><input type="number" max="26" id="tu" name="tu" value="20" required></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -112,9 +124,11 @@
 						//console.log($('#form1').serialize());
 						
 						//var isidata = $('#form1').serializeArray();
+						var val_modem = $('#modem').val();
+						
 						var isidata = $('#form1').serialize();
 						//console.log('isi data ke satu : '+isidata[0].value);
-						
+						console.log(val_modem);
 						var url = 'parsing.php';
 						alert ('data yang dikirim '+isidata);
 						$.post(
