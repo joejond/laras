@@ -41,6 +41,32 @@
 
 <body>
 	<h1>LARAS (tooLs pARsing A Satelite) v0.0</h1>
+
+<?php 
+$servername = "localhost";
+$username = "marine";
+$password = "monita2014";
+$dbname = "marine_1";
+$modem = array();
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("SELECT CONCAT(s.modem_id,' - ',s.name) AS nama, s.modem_id FROM ship s ORDER BY s.name ASC"); 
+    $stmt->execute();
+
+    // set the resulting array to associative
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    foreach($stmt->fetchAll() as $k=>$v) {
+//        print_r($v); echo "<br/>";
+	array_push($modem, $v);
+    }
+}
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+//print_r($modem);
+?>
+
 	<form id="form1" action="" method="POST">
 		<table>
 			<tr>
@@ -58,19 +84,29 @@
 			<tr>
 				<td>Start Ambil Data</td>
 				<td>:</td>
-				<td><input type="text" id="start" name="start" value="<?php $saiki = new DateTime(); echo $saiki->format('Y-m-d H:i:s');?>" required></td>
+				<td><input type="text" id="start" name="start" value="<?php $saiki = new DateTime(); $saiki->modify('-1 hour'); echo $saiki->format('Y-m-d H:i:s');?>" required></td>
 			</tr>
 			<tr>
 				<td>End Ambil Data</td>
 				<td>:</td>
 				<td><input type="text" id="end" name="end" value="<?php $saiki = new DateTime(); echo $saiki->format('Y-m-d H:i:s');?>" required></td> 
 			</tr>
+<?php 
+?>
 			<tr>
 				<td>Modem</td>
 				<td>:</td>
-				<td><input type="text" id="modem" name="modem" maxlength="15" minlength="15" style="text-transform:uppercase" required></td>
+				<td><!--input type="text" id="modem" name="modem" maxlength="15" minlength="15" style="text-transform:uppercase" required-->
+					<select id="modem" name="modem" required>
+					<?php
+						foreach($modem as $m)	{
+							echo "<option value='{$m['modem_id']}'>{$m['nama']}</option>";
+						}
+					?>
+					</select>
+				</td>
 			</tr>
-			<tr>
+			<!--tr>
 				<td>Gateway</td>
 				<td>:</td>
 				<td>
@@ -80,7 +116,7 @@
 						
 					</select>
 				</td>
-			</tr>
+			</tr-->
 			<tr>
 				<td>Jumlah Titik Ukur</td>
 				<td>:</td>

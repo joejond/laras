@@ -60,9 +60,39 @@ function parsing_rawpayload($rawpayload, $jmldata){
 //echo 'ini hasil parsing';
 //echo $_POST['start'].' s/d '.$_POST['end'].' => '.strtoupper($_POST['modem']).'<br>';
 //echo 'gaetway'. $_POST['gw'].'<br>';
-$gw = $_POST['gw'];
+//$gw = $_POST['gw'];
 $jml_tu = $_POST['tu'];
 
+$mobile_id = strtoupper($_POST['modem']);
+
+$servername = "localhost";
+$username = "marine";
+$password = "monita2014";
+$dbname = "marine_1";
+$modem = array();
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "SELECT gateway AS gw, CONCAT(g.url,'get_return_messages.xml/?access_id=',s.access_id,'&password=',s.password) as url FROM ship s, gateway g WHERE s.modem_id like '$mobile_id' AND s.gateway=g.id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    // set the resulting array to associative
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    foreach($stmt->fetchAll() as $k=>$urlx) {
+//        print_r($urlx); echo "<br/>";
+//        array_push($modem, $v);
+    }
+}
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+$url = $urlx['url'];
+$gw  = $urlx['gw'];
+//print_r($url['url']); echo "<br/>";
+//echo $v;
+//echo "url: {$urlx['url']}<br/>";
+//echo "gateway: {$url['gw']}";
 
 $mulai = $_POST['start']; echo 'Ambil Data Mulai (+07:00) : '.$mulai;
 $mulai_utc = date_create($mulai);
@@ -85,10 +115,10 @@ $url2 = 'http://isatdatapro.skywave.com/GLGW/GWServices_v1/RestMessages.svc/get_
 echo '<hr>';
 
 switch ($gw) {
-    case 1 :  $link_url = $url1.'&start_utc='.$start_utc.'&end_utc='.$end_utc.'&mobile_id='.$mobile_id;
+    case 2 :  $link_url = $url.'&start_utc='.$start_utc.'&end_utc='.$end_utc.'&mobile_id='.$mobile_id;
 				xml_RawPayload($link_url,$jml_tu);
 				break;
-    case 2:  $link_url = $url2.'&start_utc='.$start_utc.'&end_utc='.$end_utc.'&mobile_id='.$mobile_id;
+    case 1:  $link_url = $url.'&start_utc='.$start_utc.'&end_utc='.$end_utc.'&mobile_id='.$mobile_id;
 				xml_Payload($link_url,$jml_tu);
 				break;
 }
