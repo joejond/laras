@@ -120,7 +120,7 @@ catch(PDOException $e) {
 			<tr>
 				<td>Jumlah Titik Ukur</td>
 				<td>:</td>
-				<td><input type="number" max="26" id="tu" name="tu" value="20" required></td>
+				<td><input type="number" max="40" id="tu" name="tu" value="20" required></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
