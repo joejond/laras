@@ -63,14 +63,16 @@ function parsing_payload($payload, $jmldata){
 	//print_r($payload);
 	$data = array();
 	
-	$asd = hexTo32Float(dechex($payload[1]));
-	echo $asd.'<br>'; 
+	//$asd = hexTo32Float(dechex($payload[1]));
+	//echo $asd.'<br>'; 
 	
 	for ($i=0; $i < $jmldata; $i++){
 			//$x = substr($x,5);
 			//$data_i = substr($x,0,32);
-			$hex_i   = '0x' . dechex($payload[$i]);
-			$hasil = round(hexTo32Float($hex_i),6);
+			$nilai = dechex($payload[$i]) ;
+			$nilaix = (strlen($nilai) > 8) ? substr($nilai,8) : $nilai;
+			//$hex_i   = '0x' . dechex($payload[$i]);
+			$hasil = round(hexTo32Float($nilaix),6);
 			array_push($data,$hasil);
 			
 			//$x = substr($x, 32);
