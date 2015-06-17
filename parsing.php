@@ -139,7 +139,7 @@ switch ($gw) {
 //}
 
 function xml_RawPayload($link,$jml_tu){
-	//echo 'isi link di function xml Rawpayload :'.$link.'<br>';
+	echo 'isi link di function xml Rawpayload :'.$link.'<br>';
 	$filexml = simplexml_load_file($link);
 	//print_r($filexml); 
 	foreach ($filexml->Messages->ReturnMessage as $retmes){
