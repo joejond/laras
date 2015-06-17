@@ -57,6 +57,34 @@ function parsing_rawpayload($rawpayload, $jmldata){
 	return $data;
 }
 
+
+function parsing_payload($payload, $jmldata){
+	//echo 'Jumlah Parsing : '.$jmldata.'<br>';
+	//print_r($payload);
+	$data = array();
+	
+	//$tanggal = hexTo32Float(dechex($payload[0]));
+	
+	for ($i=0; $i < $jmldata; $i++){
+			//$x = substr($x,5);
+			//$data_i = substr($x,0,32);
+			$hex_i   = '0x' . dechex($payload[$i]);
+			$hasil = round(hexTo32Float($hex_i),6);
+			array_push($data,$hasil);
+			
+			//$x = substr($x, 32);
+			if ($i==0){
+				$d_waktu  = date('Y-m-d H:i:s', $hasil);
+				//array_push($data,$hasil_i);
+				echo '<u>Data pada Waktu (Local +7) : '.$d_waktu.', EpochTime : ' .$hasil.'</u><br>'; 
+			} 
+			
+		}
+	//ECHO $tanggal.'<br>';
+	
+	return $data;
+}
+
 //echo 'ini hasil parsing';
 //echo $_POST['start'].' s/d '.$_POST['end'].' => '.strtoupper($_POST['modem']).'<br>';
 //echo 'gaetway'. $_POST['gw'].'<br>';
@@ -187,9 +215,34 @@ function xml_RawPayload($link,$jml_tu){
 	//}
 }
 
-function xml_Payload(){
-	echo 'under Constrction<br>';
+function xml_Payload($link,$jml_tu){
+	//echo 'under Constrction<br>';
 	//return
+	echo $link.'<br>';
+	
+	$filexml = simplexml_load_file($link);
+	
+	//foreach ($filexml->Messages->ReturnMessage->Payload as $retmes){
+	foreach ($filexml->Messages->ReturnMessage as $retmes){
+		$msg_kirim = $retmes->MessageUTC[0];
+		echo '<br>Pesan dikirm pada (+00:00) : '. $msg_kirim;
+		$waktu_sini = new DateTime($msg_kirim,new DateTimeZone('UTC'));
+		$waktu_sini->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+		echo ' || (+07:00) : '.$waktu_sini->format('Y-m-d H:i:s').'<br>';//echo '<pre>';
+		
+		$payload = array();
+		if ( isset($retmes->Payload['SIN'][0])==128 && isset($retmes->Payload['MIN'][0])==1){
+			foreach ($retmes->Payload->Fields->Field as $data ){
+				array_push($payload,$data['Value'][0]);
+			}
+		}
+		
+		echo '<pre>';
+		print_r(parsing_payload($payload,$jml_tu));
+		echo '<pre>';
+		
+	}
+	
 }
 
 ?>
