@@ -174,7 +174,8 @@ switch ($gw) {
 
 function xml_RawPayload($link,$jml_tu){
 	//echo 'isi link di function xml Rawpayload :'.$link.'<br>';
-	echo $link.'<br>';
+	echo '<a href="'.$link.'" target="_blank">'.$link.'</a><br>';
+	
 	$filexml = simplexml_load_file($link);
 	//print_r($filexml); 
 	foreach ($filexml->Messages->ReturnMessage as $retmes){
@@ -231,7 +232,7 @@ function xml_RawPayload($link,$jml_tu){
 function xml_Payload($link,$jml_tu){
 	//echo 'under Constrction<br>';
 	//return
-	echo $link.'<br>';
+	echo '<a href="'.$link.'" target="_blank">'.$link.'</a><br>';
 	
 	$filexml = simplexml_load_file($link);
 	
