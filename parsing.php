@@ -81,7 +81,10 @@ function parsing_payload($payload, $jmldata){
 				//array_push($data,$hasil_i);
 				echo '<u>Data pada Waktu (Local +7) : '.$d_waktu.', EpochTime : ' .$hasil.'</u><br>'; 
 			} 
-			
+//			if $(
+			if ($i==2)	{
+				echo "testing<br/>";
+			}
 		}
 	//ECHO $tanggal.'<br>';
 	
@@ -187,9 +190,16 @@ function xml_RawPayload($link,$jml_tu){
 			//echo '<pre>';
 			//print_r($retmes->RawPayload[0]);
 			//echo '<pre>';
+//			echo '<pre>';
+//			print_r(parsing_rawpayload($retmes->RawPayload[0],$jml_tu));
+//			echo '<pre>';
+
+			$dt = parsing_rawpayload($retmes->RawPayload[0],$jml_tu);
 			echo '<pre>';
-			print_r(parsing_rawpayload($retmes->RawPayload[0],$jml_tu));
-			echo '<pre>';
+			if (count($dt)>=3)
+				echo "Lihat Peta : <a href='https://www.google.com/maps?q={$dt[1]},{$dt[2]}' target='_new'>Google Maps</a><br/>";
+			print_r($dt);
+			echo '</pre>';
 		}
 	}
 		
@@ -240,9 +250,16 @@ function xml_Payload($link,$jml_tu){
 			}
 		}
 		
+//		echo '<pre>';
+//		print_r(parsing_payload($payload,$jml_tu));
+//		echo '<pre>';
+
+		$dt = parsing_payload($payload,$jml_tu);
 		echo '<pre>';
-		print_r(parsing_payload($payload,$jml_tu));
-		echo '<pre>';
+		if (count($dt)>=3)
+			echo "Lihat Peta : <a href='https://www.google.com/maps?q={$dt[1]},{$dt[2]}' target='_new'>Google Maps</a><br/>";
+		print_r($dt);
+		echo '</pre>';
 		
 	}
 	
