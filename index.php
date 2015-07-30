@@ -130,8 +130,34 @@ catch(PDOException $e) {
 -->
 				<td><input type="submit" id="tb_submit" value="S U B M I T"> </td>
 			</tr>
+			<tr>
+				<td>Status Modem GPRS</td>
+				<td>:</td>
+				<td><input type="text" id="md_gprs" name="md_gprs" disabled></td>
+			</tr>
+
+			<tr>
+				<td>Aktifasi Modem GPRS</td>
+				<td>:</td>
+
+				<td><button id="tb_add">Daftar Modem</button> <button id="tb_dell">Delete Modem</button> <button id="tb_list">List Modem</button></td>
+
+			</tr>
+
+
 		</table>
 	</form>
+<!--
+	<table>
+		<tr>
+			<td>Aktifasi Modem GPRS</td>
+			<td>:</td>
+			<td><button id="tb_add">Daftar Modem</button> <button id="tb_dell">Delete Modem</button> <button id="tb_list">List Modem</button></td>
+
+		</tr>
+	</table>
+-->
+
 	<hr>
 	<div id="hasil_pars">
 	
@@ -156,7 +182,18 @@ catch(PDOException $e) {
 						//stepMinute: 
 				});
 				
+				//$( "#tb_dell" ).click(function() {
+						//alert ('eh kepencet mas');
+						//$("#form1").submit(function(e){
+							//e.preventDefault();
+							//alert ('eh submit mas');
+							////console.log($('#form1').serialize());
+						//});
+				//});
+				
+				
 				$('#form1').submit(function(){
+				//$('#tb_submit').submit(function(){
 						//console.log($('#form1').serializeArray());
 						//console.log($('#form1').serialize());
 						
@@ -176,6 +213,96 @@ catch(PDOException $e) {
 								}
 						);
 						return false;
+				});
+				
+				$('#tb_add').click(function(e){
+						//var isidata1 = $('#form1').serialize();
+						var mdm = $("#modem").val();
+						//console.log(isidata1);
+						//console.log(mdm);
+						e.preventDefault();
+						var r = confirm("Yakin akan aktifkan GPRS Modem "+ mdm+" ?? ");
+						
+						if (r == true) {
+							//var urlsn = '../gprs/daftar.php?act=add&sn='+mdm;
+							var urlsn = '../daftar.php?act=add&sn='+mdm;
+							//console.log(urlsn);
+							
+							$.post(
+								urlsn,'',
+								function (data){
+									alert ('modem SN = '+mdm+', sukses ditambahkan');
+									$('#hasil_pars').html(data);
+									}
+							);
+							
+							//alert('modem SN = '+mdm+', anda menambah modem gprs '); 
+						}
+						else 
+							alert('ga jadi gprs'); 
+						
+						return false;
+						
+				});
+				$('#tb_dell').click(function(e){
+						//var isidata1 = $('#form1').serialize();
+						var mdm = $("#modem").val();
+						//console.log(isidata1);
+						//console.log(mdm);
+						e.preventDefault();
+						var r = confirm("Yakin akan Non-Aktifkan GPRS Modem "+ mdm+" ?? ");
+						
+						if (r == true) {
+							//daftar.php?act=add&sn
+							//var urlsn = '../gprs/daftar.php?act=dell&sn='+mdm;
+							var urlsn = '../daftar.php?act=dell&sn='+mdm;
+							//console.log(urlsn);
+							
+							$.post(
+								urlsn,'',
+								function (data){
+									alert ('modem SN = '+mdm+', sukses dinonaktifkan');
+									$('#hasil_pars').html(data);
+									}
+							);
+							
+							//alert('modem SN = '+mdm+', anda menambah modem gprs '); 
+						}
+						else 
+							alert('ga jadi gprs'); 
+						
+						return false;
+						
+				});
+				$('#tb_list').click(function(e){
+						//var isidata1 = $('#form1').serialize();
+						//var mdm = $("#modem").val();
+						//console.log(isidata1);
+						//console.log(mdm);
+						e.preventDefault();
+						var r = confirm("Cek List Modem yang telah terdaftar ?? ");
+						
+						if (r == true) {
+							//daftar.php?act=add&sn
+							//var urllist = '../gprs/daftar.php?act=list';
+							var urllist = '../daftar.php?act=list';
+							//console.log(urllist);
+							
+							$.post(
+								urllist,'',
+								function (data){
+									//alert ('modem SN = '+mdm+', sukses ditambahkan');
+									$('#hasil_pars').html(data);
+									}
+							);
+							
+							//alert('modem SN = '+mdm+', anda menambah modem gprs '); 
+						}
+						else 
+							alert('ga jadi gprs'); 
+						
+						return false;
+						
 				});
 			});
 			
