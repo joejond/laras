@@ -1,4 +1,6 @@
 <?php
+
+include	'asset/inc/config.php';
 /*
  * index.php
  * 
@@ -46,14 +48,14 @@
 	<h1>LARAS (tooLs pARsing A Satelite) v0.0</h1>
 
 <?php 
-$servername = "localhost";
-$username = "marine";
-$password = "monita2014";
-$dbname = "marine_1";
+//$servername = "localhost";
+//$username = "marine";
+//$password = "monita2014";
+//$dbname = "marine_1";
 $modem = array();
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT CONCAT(s.modem_id,' - ',s.name) AS nama, s.modem_id FROM ship s ORDER BY s.name ASC"); 
     $stmt->execute();
 

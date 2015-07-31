@@ -1,4 +1,5 @@
 <?php
+include	'asset/inc/config.php';
 function hexTo32Float($number){
     $binfinal    = sprintf("%032b", hexdec($number));
     $sign        = substr($binfinal, 0, 1);
@@ -99,14 +100,14 @@ $jml_tu = $_POST['tu'];
 
 $mobile_id = strtoupper($_POST['modem']);
 
-$servername = "localhost";
-$username = "marine";
-$password = "monita2014";
-$dbname = "marine_1";
+//$servername = "localhost";
+//$username = "marine";
+//$password = "monita2014";
+//$dbname = "marine_1";
 $modem = array();
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "SELECT gateway AS gw, CONCAT(g.url,'get_return_messages.xml/?access_id=',s.access_id,'&password=',s.password) as url FROM ship s, gateway g WHERE s.modem_id like '$mobile_id' AND s.gateway=g.id";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
