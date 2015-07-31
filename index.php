@@ -34,6 +34,9 @@
 	<meta name="generator" content="Geany 1.23.1" />
 	<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
 	<link rel="stylesheet" media="all" type="text/css" href="asset/js/jquery-ui-timepicker-addon.css" />
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
 	<style>
 		.ui-datepicker{ font-size: 85%; }
 	</style>
@@ -98,6 +101,9 @@ catch(PDOException $e) {
 				<td>:</td>
 				<td><!--input type="text" id="modem" name="modem" maxlength="15" minlength="15" style="text-transform:uppercase" required-->
 					<select id="modem" name="modem" required>
+<!--
+						<option  selected>-- Pilih Modem --</option>
+-->
 					<?php
 						foreach($modem as $m)	{
 							echo "<option value='{$m['modem_id']}'>{$m['nama']}</option>";
@@ -130,6 +136,7 @@ catch(PDOException $e) {
 -->
 				<td><input type="submit" id="tb_submit" value="S U B M I T"> </td>
 			</tr>
+<!--
 			<tr>
 				<td>Status Modem GPRS</td>
 				<td>:</td>
@@ -143,6 +150,7 @@ catch(PDOException $e) {
 				<td><button id="tb_add">Daftar Modem</button> <button id="tb_dell">Delete Modem</button> <button id="tb_list">List Modem</button></td>
 
 			</tr>
+-->
 
 
 		</table>
@@ -158,7 +166,37 @@ catch(PDOException $e) {
 	</table>
 -->
 
-	<hr>
+	<div id="tabs">
+	  <ul>
+		<li><a href="#tabs-1">Modem Satelit</a></li>
+		<li><a href="#tabs-2">Modem GPRS</a></li>
+<!--
+		<li><a href="#tabs-3">Aenean lacinia</a></li>
+-->
+	  </ul>
+	  <div id="tabs-1">
+		<p>Menunggu Satelit Status</p>
+	  </div>
+	  <div id="tabs-2">
+		<p>Modem GPRS Status</p>
+		<table>
+			<tr>
+				<td>Aktifasi Modem GPRS</td>
+				<td>:</td>
+				<td><button id="tb_add">Aktivasi Modem</button> <button id="tb_dell">Deaktivasi Modem</button> <button id="tb_list">List Modem</button></td>
+
+			</tr>
+		</table>
+		<div id="tab_gprs"></div>
+	  </div>
+<!--
+	  <div id="tabs-3">
+		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+	  </div>
+-->
+	</div>
+	
 	<div id="hasil_pars">
 	
 	</div>
@@ -168,7 +206,9 @@ catch(PDOException $e) {
 	<script type="text/javascript" src="asset/js/jquery-ui-timepicker-addon.js"></script>
 	
 	<script type="text/javascript">
+			//$( document ).ready(function(){
 			$(function(){
+				$( "#tabs" ).tabs();
 				$('#start').datetimepicker({
 						dateFormat: 'yy-mm-dd', 
 						timeFormat: 'HH:mm:ss'
@@ -182,16 +222,16 @@ catch(PDOException $e) {
 						//stepMinute: 
 				});
 				
-				//$( "#tb_dell" ).click(function() {
-						//alert ('eh kepencet mas');
-						//$("#form1").submit(function(e){
-							//e.preventDefault();
-							//alert ('eh submit mas');
-							////console.log($('#form1').serialize());
-						//});
-				//});
+				$('#modem').on('change',function(){
+					//console.log(sbl);
+					var hsl = $("#modem").val();
+					
+					//kk = (hsl === '')? sbl : hsl ;
+					
+					//console.log(hsl);
 				
-				
+				});
+								
 				$('#form1').submit(function(){
 				//$('#tb_submit').submit(function(){
 						//console.log($('#form1').serializeArray());
@@ -209,7 +249,8 @@ catch(PDOException $e) {
 							url,isidata,
 							function (data){
 								alert ('Sip .... Sukses Parsingnya ');
-								$('#hasil_pars').html(data);
+								//$('#hasil_pars').html(data);
+								$('#tabs-1').html(data);
 								}
 						);
 						return false;
@@ -220,7 +261,7 @@ catch(PDOException $e) {
 						var mdm = $("#modem").val();
 						//console.log(isidata1);
 						//console.log(mdm);
-						e.preventDefault();
+						//e.preventDefault();
 						var r = confirm("Yakin akan aktifkan GPRS Modem "+ mdm+" ?? ");
 						
 						if (r == true) {
@@ -232,14 +273,14 @@ catch(PDOException $e) {
 								urlsn,'',
 								function (data){
 									alert ('modem SN = '+mdm+', sukses ditambahkan');
-									$('#hasil_pars').html(data);
+									$('#tab_gprs').html(data);
 									}
 							);
 							
 							//alert('modem SN = '+mdm+', anda menambah modem gprs '); 
 						}
 						else 
-							alert('ga jadi gprs'); 
+							alert('Yee..... Malah Ga Jadi ... '); 
 						
 						return false;
 						
@@ -249,7 +290,7 @@ catch(PDOException $e) {
 						var mdm = $("#modem").val();
 						//console.log(isidata1);
 						//console.log(mdm);
-						e.preventDefault();
+						//e.preventDefault();
 						var r = confirm("Yakin akan Non-Aktifkan GPRS Modem "+ mdm+" ?? ");
 						
 						if (r == true) {
@@ -262,14 +303,14 @@ catch(PDOException $e) {
 								urlsn,'',
 								function (data){
 									alert ('modem SN = '+mdm+', sukses dinonaktifkan');
-									$('#hasil_pars').html(data);
+									$('#tab_gprs').html(data);
 									}
 							);
 							
 							//alert('modem SN = '+mdm+', anda menambah modem gprs '); 
 						}
 						else 
-							alert('ga jadi gprs'); 
+							alert('Yee..... Malah Ga Jadi ... '); 
 						
 						return false;
 						
@@ -279,7 +320,7 @@ catch(PDOException $e) {
 						//var mdm = $("#modem").val();
 						//console.log(isidata1);
 						//console.log(mdm);
-						e.preventDefault();
+						//e.preventDefault();
 						var r = confirm("Cek List Modem yang telah terdaftar ?? ");
 						
 						if (r == true) {
@@ -292,14 +333,15 @@ catch(PDOException $e) {
 								urllist,'',
 								function (data){
 									//alert ('modem SN = '+mdm+', sukses ditambahkan');
-									$('#hasil_pars').html(data);
+									//$('#hasil_pars').html(data);
+									$('#tab_gprs').html(data);
 									}
 							);
 							
 							//alert('modem SN = '+mdm+', anda menambah modem gprs '); 
 						}
 						else 
-							alert('ga jadi gprs'); 
+							alert('Yee..... Malah Ga Jadi ... '); 
 						
 						return false;
 						
