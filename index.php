@@ -190,6 +190,7 @@ catch(PDOException $e) {
 	  </div>
 	  <div id="tabs-2">
 		<p>Modem GPRS Status</p>
+		<div id="tab_gprs"></div>
 		<table>
 			<tr>
 				<td>Aktifasi Modem GPRS</td>
@@ -198,7 +199,7 @@ catch(PDOException $e) {
 
 			</tr>
 		</table>
-		<div id="tab_gprs"></div>
+		
 	  </div>
 <!--
 	  <div id="tabs-3">
