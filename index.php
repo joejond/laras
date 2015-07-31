@@ -35,8 +35,17 @@ include	'asset/inc/config.php';
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="generator" content="Geany 1.23.1" />
 	<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
+<!--
+	<link rel="stylesheet" media="all" type="text/css" href="asset/css/style.css" />
+-->
 	<link rel="stylesheet" media="all" type="text/css" href="asset/js/jquery-ui-timepicker-addon.css" />
+<!--
+	<script src="asset/js/jquery.js"></script>
+-->
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!--
+	<script src="asset/js/jquery-ui.js"></script>
+-->
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	
 	<style>
@@ -241,11 +250,13 @@ catch(PDOException $e) {
 						
 						//var isidata = $('#form1').serializeArray();
 						//var val_modem = $('#modem').val();
+						var sn = $("#modem").val();
 						
 						var isidata = $('#form1').serialize();
 						//console.log('isi data ke satu : '+isidata[0].value);
 						//console.log(val_modem);
 						var url = 'parsing.php';
+						var urlcek = '../cek_modem.php?sn='+sn ;
 						alert ('Tunggu Mas ya....  Datanya lagi di Prosess ');
 						$.post(
 							url,isidata,
@@ -255,6 +266,16 @@ catch(PDOException $e) {
 								$('#tabs-1').html(data);
 								}
 						);
+						$.post(
+							urlcek,'',
+							function (data){
+								//alert ('Sip .... Sukses Parsingnya ');
+								//$('#hasil_pars').html(data);
+								$('#tab_gprs').html(data);
+								}
+						);
+						
+						
 						return false;
 				});
 				
