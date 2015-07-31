@@ -208,7 +208,7 @@ catch(PDOException $e) {
 	<script type="text/javascript">
 			//$( document ).ready(function(){
 			$(function(){
-				$( "#tabs" ).tabs();
+				$( "#tabs" ).tabs({collapsible: true});
 				$('#start').datetimepicker({
 						dateFormat: 'yy-mm-dd', 
 						timeFormat: 'HH:mm:ss'
