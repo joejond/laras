@@ -258,11 +258,11 @@ catch(PDOException $e) {
 						//console.log(val_modem);
 						var url = 'parsing.php';
 						var urlcek = '../cek_modem.php?sn='+sn ;
-						alert ('Tunggu Mas ya....  Datanya lagi di Prosess ');
+						alert ('Tunggu Ya Cyyinnn....  Datanya lagi di Prosess\nLaras Wardhani');
 						$.post(
 							url,isidata,
 							function (data){
-								alert ('Sip .... Sukses Parsingnya ');
+								alert ('Cucok bookk .... Sukses Parsingnya yaa muah');
 								//$('#hasil_pars').html(data);
 								$('#tabs-1').html(data);
 								}
