@@ -108,14 +108,19 @@ $modem = array();
 try {
     //$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT gateway AS gw, CONCAT(g.url,'get_return_messages.xml/?access_id=',s.access_id,'&password=',s.password) as url FROM ship s, gateway g WHERE s.modem_id like '$mobile_id' AND s.gateway=g.id";
+    //$sql = "SELECT gateway AS gw, CONCAT(g.url,'get_return_messages.xml/?access_id=',s.access_id,'&password=',s.password) as url FROM ship s, gateway g WHERE s.modem_id like '$mobile_id' AND s.gateway=g.id";
+    $sql = "select s.gateway as gw,  CONCAT(g.url,'get_return_messages.xml/?access_id=',g.access_id,'&password=',g.password) as url 
+			from ship s
+				join gateway g on g.id = s.gateway
+			WHERE s.modem_id = '$mobile_id';";
+    //echo $sql; 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
     // set the resulting array to associative
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     foreach($stmt->fetchAll() as $k=>$urlx) {
-//        print_r($urlx); echo "<br/>";
+        //print_r($urlx); echo "<br/>";
 //        array_push($modem, $v);
     }
 }
@@ -124,7 +129,7 @@ catch(PDOException $e) {
 }
 $url = $urlx['url'];
 $gw  = $urlx['gw'];
-//print_r($url['url']); echo "<br/>";
+//print_r($urlx['url']); echo "<br/>";
 //echo $v;
 //echo "url: {$urlx['url']}<br/>";
 //echo "gateway: {$url['gw']}";
@@ -142,8 +147,8 @@ $end_utc = $akhir_utc->format('Y-m-d H:i:s');
 echo ' || (+00:00) : '.$end_utc.'<br>';
 
 $mobile_id = strtoupper($_POST['modem']);
-$url1 = 'http://m2prime.aissat.com/RestMessages.svc/get_return_messages.xml/?access_id=150103286&password=ZRM3B9SSDI';
-$url2 = 'http://isatdatapro.skywave.com/GLGW/GWServices_v1/RestMessages.svc/get_return_messages.xml/?access_id=70000214&password=STSATI2010';
+//$url1 = 'http://m2prime.aissat.com/RestMessages.svc/get_return_messages.xml/?access_id=150103286&password=ZRM3B9SSDI';
+//$url2 = 'http://isatdatapro.skywave.com/GLGW/GWServices_v1/RestMessages.svc/get_return_messages.xml/?access_id=70000214&password=STSATI2010';
 
 //$link_url = $url.'&start_utc='.$start_utc.'&end_utc='.$end_utc.'&mobile_id='.$mobile_id;
 //echo $url.'&start_utc='.$start_utc.'&end_utc='.$end_utc .'&mobile_id='.$mobile_id .'<br>';
