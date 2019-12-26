@@ -42,12 +42,16 @@ include	'asset/inc/config.php';
 <!--
 	<script src="asset/js/jquery.js"></script>
 -->
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-1.10.2.js"></script> -->
 <!--
 	<script src="asset/js/jquery-ui.js"></script>
 -->
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
 	
+	<script type="text/javascript" src="asset/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="asset/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="asset/js/jquery-ui-timepicker-addon.js"></script>
+
 	<style>
 		.ui-datepicker{ font-size: 85%; }
 	</style>
@@ -217,9 +221,9 @@ catch(PDOException $e) {
 	
 	</div>
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="asset/js/jquery-ui-timepicker-addon.js"></script>
+	<!-- <script type="text/javascript" src="asset/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="asset/js/jquery-ui.min.js"></script> -->
+	<!-- <script type="text/javascript" src="asset/js/jquery-ui-timepicker-addon.js"></script> -->
 	
 	<script type="text/javascript">
 			//$( document ).ready(function(){
@@ -258,8 +262,8 @@ catch(PDOException $e) {
 						var sn = $("#modem").val();
 						
 						var isidata = $('#form1').serialize();
-						//console.log('isi data ke satu : '+isidata[0].value);
-						//console.log(val_modem);
+						console.log('isi data ke satu : '+isidata[0].value);
+						console.log(val_modem);
 						var url = 'parsing.php';
 						var urlcek = '../cek_modem.php?sn='+sn ;
 						alert ('Tunggu Ya Cyyinnn....  Datanya lagi di Prosess\nLaras Wardhani');

@@ -7,7 +7,7 @@
 //$password = "monita2014";
 //$dbname = "marine_1";
 
-$conn = new PDO('mysql:host=localhost;dbname=marine_1', 'marine', 'monita2014');
+$conn = new PDO('mysql:host=marine.daunbiru.com;dbname=marine_1s', 'marine', 'monita2014');
 //$db = new PDO('mysql:host=$servername;dbname=$dbname', $username, $password);
 ////$db = new PDO($dsn, $username, $password);
 

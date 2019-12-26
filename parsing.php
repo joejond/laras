@@ -1,5 +1,7 @@
 <?php
 include	'asset/inc/config.php';
+include 'parsing_neo.php';
+
 function hexTo32Float($number){
     $binfinal    = sprintf("%032b", hexdec($number));
     $sign        = substr($binfinal, 0, 1);
@@ -17,6 +19,61 @@ function hexTo32Float($number){
 
 function hitung_parsing(){
 	
+}
+
+function parsing_rawpayload_neo($rawpayload, $jmldata){
+	$data = array();
+	$rawtostr = strbin($rawpayload);
+	$arr_hasil = parsebin($rawtostr);
+	
+	foreach ($arr_hasil as $val){
+		// echo $val.'</br>';
+		// echo bin2nilai($val).'</br>';
+		array_push($data,bin2nilai($val));
+
+	}
+
+	$d_waktu  = date('Y-m-d H:i:s', $data[0]);
+	echo '<u>Data pada Waktu (Local +7) : '.$d_waktu.', EpochTime : ' .$hasil_i.'</u><br>'; 
+
+
+	
+	// //echo 'Jumlah Parsing : '.$jmldata.'<br>';
+	// //if ($gw==1){
+	// 	//echo 'Parsing KureyGeyo<br>';
+	// //}
+	// //else {
+	// 	// $a = base64_decode($rawpayload);
+	// 	//echo 'Data RawPayloadnya : '.$a.'<br>';
+	// 	// $x = '';
+	// 	// foreach (str_split($a) as $c) {
+	// 	// 	$b = sprintf("%08b", ord($c));
+	// 	// 	//echo $b.' ';
+	// 	// 	$x = $x .$b;
+	// 	// 	//echo $x.'<br>';
+	// 	// }
+	// 	// $data = array();
+	// 	// $x = substr($x,16);
+		
+	// 	for ($i=0; $i < $jmldata; $i++){
+	// 		$x = substr($x,5);
+	// 		$data_i = substr($x,0,32);
+	// 		$hex_i   = '0x' . dechex(bindec($data_i));
+	// 		$hasil_i = round(hexTo32Float($hex_i),6);
+	// 		array_push($data,$hasil_i);
+			
+	// 		$x = substr($x, 32);
+	// 		if ($i==0){
+	// 			$d_waktu  = date('Y-m-d H:i:s', $hasil_i);
+	// 			//array_push($data,$hasil_i);
+	// 			echo '<u>Data pada Waktu (Local +7) : '.$d_waktu.', EpochTime : ' .$hasil_i.'</u><br>'; 
+	// 		} 
+			
+	// 	}
+	// //}
+	
+	
+	return $data;
 }
 
 function parsing_rawpayload($rawpayload, $jmldata){
@@ -200,13 +257,14 @@ function xml_RawPayload($link,$jml_tu){
 //			echo '<pre>';
 //			print_r(parsing_rawpayload($retmes->RawPayload[0],$jml_tu));
 //			echo '<pre>';
-
-			$dt = parsing_rawpayload($retmes->RawPayload[0],$jml_tu);
+			$dt = parsing_rawpayload_neo($retmes->RawPayload[0],$jml_tu);
+			// $dt = parsing_rawpayload($retmes->RawPayload[0],$jml_tu);
 			echo '<pre>';
 			if (count($dt)>=3)
 				echo "Lihat Peta : <a href='https://www.google.com/maps?q={$dt[1]},{$dt[2]}' target='_new'>Google Maps</a><br/>";
 			print_r($dt);
 			echo '</pre>';
+
 		}
 	}
 		
